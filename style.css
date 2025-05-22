@@ -1,0 +1,50 @@
+/* Basic styles - will be expanded */
+body {
+    font-family: sans-serif;
+    margin: 20px;
+}
+
+#visualization {
+    border: 1px solid #ccc;
+    height: 600px; /* Adjust as needed */
+    margin-top: 20px;
+}
+
+/* --- Cluster Styling --- */
+
+/* Base style for clusters (optional) */
+.vis-item.vis-cluster {
+    /* Default background is often light blue */
+    /* border-color: #97C2FC; */
+    /* color: #3564A1; */
+}
+
+/* Style clusters containing ACE actions */
+.vis-item.vis-cluster.cluster-has-ace {
+    border: 2px solid orange;
+    /* Or change background */
+    /* background-color: rgba(255, 165, 0, 0.3); */
+}
+
+/* Style clusters containing Ortto Email */
+.vis-item.vis-cluster.cluster-has-ortto-email {
+    /* Add a top border? */
+    border-top: 3px solid dodgerblue;
+}
+
+/* Style clusters containing Ortto SMS */
+.vis-item.vis-cluster.cluster-has-ortto-sms {
+     /* Add a bottom border? */
+     border-bottom: 3px solid lightseagreen;
+}
+
+/* Style clusters containing MyPage */
+.vis-item.vis-cluster.cluster-has-mypage {
+    /* Change background slightly? */
+    background-color: #e0ffe0; /* Light green hint */
+}
+
+/* Style clusters containing S2 (if needed) */
+.vis-item.vis-cluster.cluster-has-s2 {
+    border-right: 3px solid grey;
+} 
