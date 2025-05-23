@@ -37,6 +37,14 @@ This application visualizes the flow of loan applications through different 'buc
     - Then, it starts the Node.js server (on port 3001), which now also serves the static files from `dist/`.
     - Open `http://localhost:3001` in your browser.
 
+## Testing
+
+Run the Jest test suite:
+
+```bash
+npm test
+```
+
 ## Changelog
 
 - **2024-07-26:** Refactored frontend to use Vite build tool. Implemented `itemTemplate` for custom cluster content.
