@@ -8,7 +8,8 @@
     "dev:backend": "nodemon server.js",
     "dev": "npm-run-all --parallel dev:frontend dev:backend",
     "build": "vite build",
-    "start": "npm run build && node server.js"
+    "start": "npm run build && node server.js",
+    "test": "node test/actions.test.mjs"
   },
   "keywords": [
     "visualization",
