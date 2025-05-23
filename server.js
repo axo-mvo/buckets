@@ -51,9 +51,13 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(port, () => {
-    console.log(`Backend server listening at http://localhost:${port}`);
-    if (process.env.NODE_ENV !== 'production') {
-        console.log('Run `npm run dev` to start frontend dev server.');
-    }
-}); 
+if (require.main === module) {
+    app.listen(port, () => {
+        console.log(`Backend server listening at http://localhost:${port}`);
+        if (process.env.NODE_ENV !== 'production') {
+            console.log('Run `npm run dev` to start frontend dev server.');
+        }
+    });
+}
+
+module.exports = app;

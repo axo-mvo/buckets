@@ -186,7 +186,9 @@ function renderTimeline(buckets) {
             const isCluster = potentialClusterData && Array.isArray(potentialClusterData.items);
             
             if (isCluster && potentialClusterData.items) {
-                const itemIdsInCluster = potentialClusterData.items.map(i => i.id);
+                const itemIdsInCluster = potentialClusterData.items.map(i =>
+                    typeof i === 'object' && i.id !== undefined ? i.id : i
+                );
                 const clusteredItemsData = items.get(itemIdsInCluster, { returnType: 'Object' });
 
                 let actionCounts = { aceCall: 0, aceSMS: 0, aceInvestigate: 0, orttoEmail: 0, orttoSMS: 0, myPage: 0, s2: 0 };
@@ -227,6 +229,7 @@ function renderTimeline(buckets) {
                 if (actionCounts.orttoEmail > 0) details.push(`📧 Emails: ${actionCounts.orttoEmail}`);
                 if (actionCounts.orttoSMS > 0) details.push(`📱 Ortto SMS: ${actionCounts.orttoSMS}`);
                 if (actionCounts.myPage > 0) details.push(`📄 MyPage: ${actionCounts.myPage}`);
+                if (actionCounts.s2 > 0) details.push(`⚙️ S2: ${actionCounts.s2}`);
                 
                 alertText += details.join('\n');
                 alert(alertText); 
