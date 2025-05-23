@@ -4,6 +4,12 @@
 import 'vis-timeline/styles/vis-timeline-graph2d.css';
 // Import vis-timeline components
 import { DataSet, Timeline } from "vis-timeline/standalone";
+import {
+    formatActionsForTooltip,
+    formatActionsForBoxContent,
+    getActionTypesSummary,
+    formatActionsForContent
+} from './actions.mjs';
 
 console.log('Script loaded');
 
@@ -43,23 +49,6 @@ function formatConditionsForTooltip(conditions) {
     }).join('<br>');
 }
 
-function formatActionsForTooltip(actions) {
-    let formatted = [];
-    if (actions.ace && actions.ace.length > 0) {
-        actions.ace.forEach(a => formatted.push(`- ACE: ${a.aceActionType} (${a.clientRole || 'N/A'})` + (a.description ? ` - ${a.description}`: '')));
-    }
-    if (actions.myPage && actions.myPage.length > 0) {
-        actions.myPage.forEach(a => formatted.push(`- MyPage: Template ${a.templateId || 'N/A'}`));
-    }
-    if (actions.ortto && actions.ortto.length > 0) {
-        actions.ortto.forEach(a => formatted.push(`- Ortto: ${a.orttoActionType}` + (a.description ? ` - ${a.description}` : '')));
-    }
-    if (actions.s2 && actions.s2.length > 0) {
-        actions.s2.forEach(a => formatted.push(`- S2: ${JSON.stringify(a)}`)); 
-    }
-    return formatted.length > 0 ? formatted.join('<br>') : 'No actions';
-}
-
 // Gets a simple list of action categories (ACE, MyPage, Ortto, S2)
 function getActionCategories(actions) {
     let categories = [];
@@ -71,59 +60,13 @@ function getActionCategories(actions) {
 }
 
 // NEW: Formats detailed actions specifically for the box content
-function formatActionsForBoxContent(actions) {
-    let details = [];
-
-    if (actions.ace && actions.ace.length > 0) {
-        // Get unique ACE action descriptions like "Call (Sales)"
-        const aceTypes = [...new Set(actions.ace.map(a => `${a.aceActionType} (${a.clientRole || '?'})`))];
-        if (aceTypes.length > 0) {
-            details.push(`ACE: ${aceTypes.join(', ')}`);
-        }
-    }
-
-    if (actions.myPage && actions.myPage.length > 0) {
-        // Just indicate MyPage action exists
-        details.push('MyPage Action'); 
-    }
-
-    if (actions.ortto && actions.ortto.length > 0) {
-        // Get unique Ortto action types like "Email", "SMS"
-        const orttoTypes = [...new Set(actions.ortto.map(a => a.orttoActionType))];
-        if (orttoTypes.length > 0) {
-            details.push(`Ortto: ${orttoTypes.join(', ')}`);
-        }
-    }
-
-    if (actions.s2 && actions.s2.length > 0) {
-        // Just indicate S2 action exists
-        details.push('S2 Action');
-    }
-
-    return details.length > 0 ? details.join(' | ') : 'No actions';
-}
+// (Implementation moved to actions.mjs)
 
 // Updated function to get a short summary of action types for the box content
-function getActionTypesSummary(actions) {
-    let types = [];
-    if (actions.ace && actions.ace.length > 0) types.push('ACE');
-    if (actions.myPage && actions.myPage.length > 0) types.push('MyPage');
-    if (actions.ortto && actions.ortto.length > 0) types.push('Ortto');
-    if (actions.s2 && actions.s2.length > 0) types.push('S2');
-    return types.length > 0 ? `Actions: ${types.join(', ')}` : 'No actions';
-}
+// (Implementation moved to actions.mjs)
 
-function formatActionsForContent(actions) {
-    let icons = [];
-    if (actions.ace && actions.ace.length > 0) icons.push('👤'); // User icon for ACE
-    if (actions.myPage && actions.myPage.length > 0) icons.push('📄'); // Document for MyPage
-    if (actions.ortto && actions.ortto.find(a => a.orttoActionType === 'Email')) icons.push('📧'); // Email
-    if (actions.ortto && actions.ortto.find(a => a.orttoActionType === 'SMS')) icons.push('📱'); // SMS
-    if (actions.ace && actions.ace.find(a => a.aceActionType === 'Call' || a.aceActionType === 'TwoWaySMS')) icons.push('📞'); // Call/SMS interaction
-    // Add S2 icon if applicable
-    // if (actions.s2 && actions.s2.length > 0) icons.push('⚙️'); // Gear for S2?
-    return icons.join(' ');
-}
+// Formatting function for inline icons representing actions
+// (Implementation moved to actions.mjs)
 
 // TODO: Improve time condition formatting for content if needed
 // function formatTimeConditionsForContent(conditions) { ... }
